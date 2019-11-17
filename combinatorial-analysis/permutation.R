@@ -24,4 +24,4 @@ factorial(3)
 
 # 11! / (4!*4!*2!)
 
-factorial(11) / (factorial(4) * factorial(4) * factorial(2))
+factorial(11) / (factorial(4) * factorial(4) * factorial(2))  #4xI,4xS,2xP 
