@@ -33,10 +33,3 @@ for(i in vetores){
   }
   
 }
-
-
-
-
-
-
-
