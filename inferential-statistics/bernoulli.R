@@ -8,4 +8,21 @@
 install.packages("Rlab")                         # Install Rlab package
 library("Rlab")                                  # Load Rlab package
 
-dbern(1, 0.7)
+
+dbern(0, 0.7) # probability of 0 is 0.3
+dbern(1, 0.7) # probability of 1 is 0.7
+dbern(2, 0.7) # other cases, probability is 0 
+
+pbern(0, 0.7)
+pbern(1, 0.7)
+pbern(2, 0.7)
+
+qbern(0, 0.7)
+qbern(1, 0.7)
+qbern(2, 0.7)
+
+rbern(0, 0.7)
+rbern(1, 0.7)
+rbern(2, 0.7)
+rbern(3, 0.7)
+rbern(10, 0.7)
