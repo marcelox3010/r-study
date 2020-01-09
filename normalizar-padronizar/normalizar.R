@@ -17,4 +17,7 @@ normalizar <- function(v){
 }
 
 meuVetor             <- c(1:100)
-meuVetorNormalizado1 <- normalizar(meuVetor)
+meuVetorNormalizado  <- normalizar(meuVetor)
+
+matrix(c(meuVetor, meuVetorNormalizado), ncol = 2)
+
