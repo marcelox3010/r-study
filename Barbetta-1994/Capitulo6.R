@@ -12,7 +12,7 @@ sqrt(((sum(turma_a^2)) - (length(turma_a) * (mean(turma_a)^2))) / (length(turma_
 #FÓRMULA 3
 turma_a_unicos <- unique(turma_a)
 turma_a_unicos_freq <- as.vector(table(turma_a))
-sqrt(((sum(turma_a_unicos^2 * turma_a_unicos_freq)) - (length(turma_a_unicos) * (mean(turma_a_unicos)^2))) / (length(turma_a_unicos) - 1))
+sqrt(((sum(turma_a_unicos^2 * turma_a_unicos_freq)) - (length(turma_a) * (mean(turma_a)^2))) / (length(turma_a) - 1))
 
 #Questão 1
 
