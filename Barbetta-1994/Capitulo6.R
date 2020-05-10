@@ -104,6 +104,20 @@ barplot(data=dados,
         main="Histograma Famílias")
 
 
+# Questão 10
+
+a <- c(15,9,7,20,18,19,23,32,14,10,11)
+b <- c(15,9,7,20,18,19,23,32,15,10,11,16)
+
+median(a)
+mean(a)
+quantile(a)
+summary(a)
+
+median(b)
+mean(b)
+quantile(b)
+summary(b)
 
 
 
