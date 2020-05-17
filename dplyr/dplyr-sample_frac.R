@@ -1,5 +1,5 @@
 #
-# DPLYR SELECT
+# DPLYR sample_frac
 #
 #install.packages("dplyr")
 
