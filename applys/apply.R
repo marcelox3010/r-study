@@ -12,3 +12,18 @@ apply(a, 2, sum) # SOMA COLUNAS
 b
 apply(b, 1, sum) # SOMA LINHAS
 apply(b, 2, sum) # SOMA COLUNAS
+
+#
+# CRIANDO UMA FUNÇÃO PARA O APPLY
+#
+
+multiplicador <- function(d){
+  
+
+   d[1] * d[2] * d[3] 
+ 
+    
+
+}
+
+apply(b, 2, multiplicador) # media COLUNAS
