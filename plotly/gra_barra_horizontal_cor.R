@@ -44,3 +44,32 @@ fig <- fig %>% layout(legend = list(orientation = 'h'))
 
 fig
 
+#gráfico 3
+
+legendas <- c("Famílias com Perfil", "Famílias Acompanhadas", "Famílias que Cumpriram")
+valores <- c(3, 2, 1)
+titulo <- "Condicionalidades na Saúde (12/2019)4"
+cores <- c("rgb(247,199,48)", "rgb(68,114,196)")
+
+data <- data.frame(legendas, valores)
+
+fig <- plot_ly(data,
+    x = ~valores, 
+    y = ~legendas, 
+    type = 'bar', 
+    orientation = 'h',
+    marker = list(color = c(cores[1], cores[1], cores[2])
+    ))
+
+
+
+fig <- fig %>% layout(title = titulo,
+                      xaxis = list(title = ""),
+                      yaxis = list(title = ""))
+
+#data$legendas <- factor(data$legendas, levels = c("Famílias com Perfil", "Famílias Acompanhadas", "Famílias que Cumpriram"))
+#fig <- fig %>% layout(yaxis = list(categoryorder = "array", categoryarray = datalegendas)) 
+
+
+fig
+
