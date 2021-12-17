@@ -52,5 +52,6 @@ vetor_numeros_para_ordenacao <-
     replace=TRUE
   )
 
+vetor_numeros_para_ordenacao
 bubble_sort_gadelha(vetor_numeros_para_ordenacao)
 bubble_sort_gadelha(vetor_numeros_para_ordenacao, "DESC")
