@@ -15,7 +15,8 @@ bubble_sort_gadelha <- function(vetor, ordem="ASC"){
       
       if(p_ordem){
         
-        # SE ELE ENTRAR NESSE ALGUMA VEZ SIGNIFICA QUE O VETOR ESTÁ DESORDENADO
+        # SE ELE ENTRAR NESTA CONDICIONAL ALGUMA VEZ 
+        # SIGNIFICA QUE O VETOR ESTÁ DESORDENADO
         desordenado <- TRUE
         
         # TROCA ELEMENTOS DE POSIÇÃO
