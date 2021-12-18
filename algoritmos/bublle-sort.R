@@ -1,4 +1,6 @@
-#BUBLE SORT FUNCTION
+#
+# BUBLE SORT FUNCTION
+#
 mgg_bubble_sort <- function(vetor){
   
   for(minimo in 2:length(vetor)){
@@ -21,16 +23,18 @@ mgg_bubble_sort <- function(vetor){
   
 }
 
-#QUANTIDADE DE NÚMEROS PARA ORDENAR
-qtd_elementos <- 10
+# EXEMPLO
 
-#NÚMERO INICIAL PARA AMOSTRA
+# QUANTIDADE DE NÚMEROS PARA ORDENAR
+qtd_elementos <- 1000
+
+# NÚMERO INICIAL PARA AMOSTRA
 numero_inicial_para_geracao_numeros <- 1
 
-#NÚMERO FINAL PARA AMOSTRA
-numero_final_para_geracao_numeros <- 10
+# NÚMERO FINAL PARA AMOSTRA
+numero_final_para_geracao_numeros <- 1000
 
-#CRIA VETOR DE NÚMEROS ALEATÓRIOS
+# CRIA VETOR DE NÚMEROS ALEATÓRIOS
 vetor_numeros_para_ordenacao <- 
         
   sample(
@@ -39,5 +43,8 @@ vetor_numeros_para_ordenacao <-
     replace=FALSE
   )
 
+# IMPRIME VETOR PARA COMPARAR
 vetor_numeros_para_ordenacao
+
+# CHAMA FUNÇÃO BUBBLE SORT
 mgg_bubble_sort(vetor_numeros_para_ordenacao)
