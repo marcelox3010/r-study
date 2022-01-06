@@ -5,14 +5,13 @@ mgg_selection_sort <- function(vetor){
 
   for(i in 1:length(vetor)){
     
-    minimo <- vetor[i]
-    indice_menor_numero <- NA
+    min <- vetor[i]
     
     for(j in i:length(vetor)){
       
-      if(minimo > vetor[j]){
+      if(min > vetor[j]){
         
-        minimo <- vetor[j]
+        min <- vetor[j]
         indice_menor_numero <- j
         
       }
@@ -36,13 +35,13 @@ mgg_selection_sort <- function(vetor){
 # EXEMPLO
 
 # QUANTIDADE DE NÚMEROS PARA ORDENAR
-qtd_elementos <- 1000
+qtd_elementos <- 10000
 
 # NÚMERO INICIAL PARA AMOSTRA
 numero_inicial_para_geracao_numeros <- 1
 
 # NÚMERO FINAL PARA AMOSTRA
-numero_final_para_geracao_numeros <- 1000
+numero_final_para_geracao_numeros <- 10000
 
 # CRIA VETOR DE NÚMEROS ALEATÓRIOS
 vetor_numeros_para_ordenacao <- 
