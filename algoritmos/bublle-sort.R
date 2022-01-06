@@ -3,15 +3,15 @@
 #
 mgg_bubble_sort <- function(vetor){
   
-  for(minimo in 2:length(vetor)){
+  for(i in 2:length(vetor)){
     
-    for(indice in length(vetor):minimo){
+    for(j in length(vetor):i){
       
-      if(vetor[indice] < vetor[indice-1]){
+      if(vetor[j] < vetor[j-1]){
         
-        tmp <- vetor[indice-1]
-        vetor[indice-1] <- vetor[indice]
-        vetor[indice] <- tmp
+        tmp <- vetor[j-1]
+        vetor[j-1] <- vetor[j]
+        vetor[j] <- tmp
         
       }
       
