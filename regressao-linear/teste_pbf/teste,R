@@ -1,0 +1,91 @@
+
+library("caret")
+
+dados <- read.csv("dados.csv")
+set.seed(100)
+
+rows <- sample(nrow(dados))
+
+shuffled_dados <-dados[rows,]
+
+split <- round(nrow(dados) * 0.8)
+
+train <- shuffled_dados[1:split,]
+test <- shuffled_dados[split+1:nrow(shuffled_dados),]
+
+#modelo 1
+
+model1 <- lm(qtd_familias_beneficiarias_bolsa_familia~valor_repassado_bolsa_familia_s, train)
+model1
+
+p1 <- predict(model, test)
+test$p1 <- p1
+
+plot(test$p1~test$qtd_familias_beneficiarias_bolsa_familia)
+
+#modelo 2
+
+model2 <- lm(qtd_familias_beneficiarias_bolsa_familia~populacao_censo_2010 , train)
+model2
+
+p2 <- predict(model2, test)
+test$p2 <- p2
+
+plot(test$p2~test$qtd_familias_beneficiarias_bolsa_familia)
+
+#modelo 3
+
+model3 <- lm(qtd_familias_beneficiarias_bolsa_familia~populacao_censo_2010+valor_repassado_bolsa_familia_s , train)
+model3
+
+p3 <- predict(model3, test)
+test$p3 <- p3
+
+plot(test$p3~test$qtd_familias_beneficiarias_bolsa_familia)
+
+#modelo 4
+train2 <-(train[!is.na(train$populacao_censo_2010),])
+
+model_cross_validation_10 <- train(
+    qtd_familias_beneficiarias_bolsa_familia~populacao_censo_2010, 
+    train2,
+    method = "lm",
+    trControl = trainControl(
+        method = "cv", 
+        number = 10,
+        verboseIter = TRUE
+    )
+)
+
+#modelo 5
+train2 <-(train[!is.na(train$populacao_censo_2010),])
+
+model_cross_validation_10 <- train(
+    qtd_familias_beneficiarias_bolsa_familia~populacao_censo_2010, 
+    train2,
+    method = "lm",
+    trControl = trainControl(
+        method = "cv", 
+        number = 10,
+        verboseIter = TRUE
+    )
+)
+
+
+p4<- predict(model_cross_validation_10, test)
+
+test$p4 <- p4
+
+plot(test$p4~test$qtd_familias_beneficiarias_bolsa_familia)
+
+# Compute errors: error
+error1 <- p1 - test$qtd_familias_beneficiarias_bolsa_familia
+error2 <- p2 - test$qtd_familias_beneficiarias_bolsa_familia
+error3 <- p3 - test$qtd_familias_beneficiarias_bolsa_familia
+error4 <- p4 - test$qtd_familias_beneficiarias_bolsa_familia
+
+sqrt(mean(error1^2, na.rm = T))
+sqrt(mean(error2^2, na.rm = T))
+sqrt(mean(error3^2, na.rm = T))
+sqrt(mean(error4^2, na.rm = T))
+
