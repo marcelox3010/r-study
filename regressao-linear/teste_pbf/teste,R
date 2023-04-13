@@ -22,9 +22,23 @@ test <-(test[!is.na(test$populacao_censo_2010),])
 
 model1 <- lm(qtd_familias_beneficiarias_bolsa_familia~valor_repassado_bolsa_familia_s, train)
 model1
+summary(model1)
+
+a <- function(x){ return (-12.102119+((0.001516)*(x))) }
+b <- function(x){ return (0.001516+((-12.102119)*(x))) }
+a(100)
 
 p1 <- predict(model1, test)
 test$p1 <- p1
+test$p1_a <- a(test$valor_repassado_bolsa_familia_s)
+
+
+test$p1 - test$p1_a
+test$p1 - test$p1_b
+
+test[,c("p1","p1_a","p1_b")]
+
+
 
 plot(test$p1~test$qtd_familias_beneficiarias_bolsa_familia)
 
