@@ -1,6 +1,8 @@
 
 library("caret")
 
+#url <- "http://susagi150.mds.net:8983/solr/matriz_informacoes2/select?fl=codigo_ibge%2Canomes_s%2Cpopulacao_censo_2010%2Cqtd_familias_beneficiarias_bolsa_familia%2Cvalor_repassado_bolsa_familia_s&fq=anomes_s%3A%22202303%22&q=*%3A*&rows=1000000&wt=csv"
+#dados <- read.csv(url)
 dados <- read.csv("dados.csv")
 set.seed(100)
 
@@ -11,14 +13,16 @@ shuffled_dados <-dados[rows,]
 split <- round(nrow(dados) * 0.8)
 
 train <- shuffled_dados[1:split,]
+train <-(train[!is.na(train$populacao_censo_2010),])
 test <- shuffled_dados[split+1:nrow(shuffled_dados),]
+test <-(test[!is.na(test$populacao_censo_2010),])
 
 #modelo 1
 
 model1 <- lm(qtd_familias_beneficiarias_bolsa_familia~valor_repassado_bolsa_familia_s, train)
 model1
 
-p1 <- predict(model, test)
+p1 <- predict(model1, test)
 test$p1 <- p1
 
 plot(test$p1~test$qtd_familias_beneficiarias_bolsa_familia)
@@ -44,11 +48,10 @@ test$p3 <- p3
 plot(test$p3~test$qtd_familias_beneficiarias_bolsa_familia)
 
 #modelo 4
-train2 <-(train[!is.na(train$populacao_censo_2010),])
 
-model_cross_validation_10 <- train(
+model4 <- train(
     qtd_familias_beneficiarias_bolsa_familia~populacao_censo_2010, 
-    train2,
+    train,
     method = "lm",
     trControl = trainControl(
         method = "cv", 
@@ -56,36 +59,44 @@ model_cross_validation_10 <- train(
         verboseIter = TRUE
     )
 )
+
+p4 <- predict(model4, test)
+test$p4 <- p4
+plot(test$p4~test$qtd_familias_beneficiarias_bolsa_familia)
+
 
 #modelo 5
-train2 <-(train[!is.na(train$populacao_censo_2010),])
 
-model_cross_validation_10 <- train(
+# Fit lm model using 5 x 5-fold CV: model
+model5 <- train(
     qtd_familias_beneficiarias_bolsa_familia~populacao_censo_2010, 
-    train2,
+    train,
     method = "lm",
     trControl = trainControl(
-        method = "cv", 
-        number = 10,
+        method = "repeatedcv", 
+        number = 5,
+        repeats = 5, 
         verboseIter = TRUE
     )
 )
 
 
-p4<- predict(model_cross_validation_10, test)
+p5<- predict(model5, test)
 
-test$p4 <- p4
+test$p5 <- p5
 
-plot(test$p4~test$qtd_familias_beneficiarias_bolsa_familia)
+plot(test$p5~test$qtd_familias_beneficiarias_bolsa_familia)
 
 # Compute errors: error
 error1 <- p1 - test$qtd_familias_beneficiarias_bolsa_familia
 error2 <- p2 - test$qtd_familias_beneficiarias_bolsa_familia
 error3 <- p3 - test$qtd_familias_beneficiarias_bolsa_familia
 error4 <- p4 - test$qtd_familias_beneficiarias_bolsa_familia
+error5 <- p5 - test$qtd_familias_beneficiarias_bolsa_familia
 
 sqrt(mean(error1^2, na.rm = T))
 sqrt(mean(error2^2, na.rm = T))
 sqrt(mean(error3^2, na.rm = T))
 sqrt(mean(error4^2, na.rm = T))
+sqrt(mean(error5^2, na.rm = T))
 
