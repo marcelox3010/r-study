@@ -1,8 +1,10 @@
+install.packages("Metrics")
 
 library("caret")
+library("Metrics")
 
-
-dados <- read.csv("dados.csv")
+url <- "http://susagi150.mds.net:8983/solr/matriz_informacoes2/select?fl=codigo_ibge%2Canomes_s%2Cpopulacao_censo_2010%2Cqtd_familias_beneficiarias_bolsa_familia%2Cvalor_repassado_bolsa_familia_s&fq=anomes_s%3A%22202303%22&q=*%3A*&rows=1000000&wt=csv"
+dados <- read.csv(url)
 set.seed(100)
 
 rows <- sample(nrow(dados))
@@ -73,8 +75,8 @@ model5 <- train(
     method = "lm",
     trControl = trainControl(
         method = "repeatedcv", 
-        number = 5,
-        repeats = 5, 
+        number = 10,
+        repeats = 10, 
         verboseIter = TRUE
     )
 )
@@ -87,15 +89,23 @@ test$p5 <- p5
 plot(test$p5~test$qtd_familias_beneficiarias_bolsa_familia)
 
 # Compute errors: error
-error1 <- p1 - test$qtd_familias_beneficiarias_bolsa_familia
-error2 <- p2 - test$qtd_familias_beneficiarias_bolsa_familia
-error3 <- p3 - test$qtd_familias_beneficiarias_bolsa_familia
-error4 <- p4 - test$qtd_familias_beneficiarias_bolsa_familia
-error5 <- p5 - test$qtd_familias_beneficiarias_bolsa_familia
+error1 <- test$qtd_familias_beneficiarias_bolsa_familia - p1
+error2 <- test$qtd_familias_beneficiarias_bolsa_familia - p2
+error3 <- test$qtd_familias_beneficiarias_bolsa_familia - p3
+error4 <- test$qtd_familias_beneficiarias_bolsa_familia - p4
+error5 <- test$qtd_familias_beneficiarias_bolsa_familia - p5
 
-sqrt(mean(error1^2, na.rm = T))
-sqrt(mean(error2^2, na.rm = T))
-sqrt(mean(error3^2, na.rm = T))
-sqrt(mean(error4^2, na.rm = T))
-sqrt(mean(error5^2, na.rm = T))
+n <- nrow(test)
+
+sqrt(sum(error1^2)/n)
+sqrt(sum(error2^2)/n)
+sqrt(sum(error3^2)/n)
+sqrt(sum(error4^2)/n)
+sqrt(sum(error5^2)/n)
+
+rmse(test$qtd_familias_beneficiarias_bolsa_familia, p1)
+rmse(test$qtd_familias_beneficiarias_bolsa_familia, p2)
+rmse(test$qtd_familias_beneficiarias_bolsa_familia, p3)
+rmse(test$qtd_familias_beneficiarias_bolsa_familia, p4)
+rmse(test$qtd_familias_beneficiarias_bolsa_familia, p5)
 
