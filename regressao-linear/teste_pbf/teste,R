@@ -1,8 +1,7 @@
 
 library("caret")
 
-#url <- "http://susagi150.mds.net:8983/solr/matriz_informacoes2/select?fl=codigo_ibge%2Canomes_s%2Cpopulacao_censo_2010%2Cqtd_familias_beneficiarias_bolsa_familia%2Cvalor_repassado_bolsa_familia_s&fq=anomes_s%3A%22202303%22&q=*%3A*&rows=1000000&wt=csv"
-#dados <- read.csv(url)
+
 dados <- read.csv("dados.csv")
 set.seed(100)
 
